@@ -18,6 +18,10 @@ func GetResult(m sync.Map) (float64, float64, string) {
 		return true
 	})
 
+	if len(milliseconds) < 2 {
+		return 0, 0, "[Not enough values]"
+	}
+
 	sort.Float64s(milliseconds)
 	min = milliseconds[0]
 	max = milliseconds[len(milliseconds)-1]

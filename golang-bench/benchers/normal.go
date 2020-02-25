@@ -1,32 +1,27 @@
-package main
+package benchers;
 
 import (
-	"flag"
 	"fmt"
 	"net"
 	"sync"
 	"sync/atomic"
 	"time"
 
-	"./utils"
+	"../utils"
 )
 
-func main() {
-	timeStarted := time.Now()
-	serverAddress := flag.String("s", "127.0.0.1:9003", "Server address")
-	connectionNumber := flag.Int("c", 2000, "Connection number")
-	flag.Parse()
-
+func StartNormal(serverAddress string, connectionNumber int) {
 	var completeNumbers, failedNumbers int64
 	connectionTimes := sync.Map{}
 	wg := new(sync.WaitGroup)
+	timeStarted := time.Now()
 
-	for i := 0; i < *connectionNumber; i++ {
+	for i := 0; i < connectionNumber; i++ {
 		wg.Add(1)
 
 		go func() {
 			start := time.Now()
-			if _, err := net.DialTimeout("tcp", *serverAddress, time.Minute*99999); err == nil {
+			if _, err := net.DialTimeout("tcp", serverAddress, time.Minute*99999); err == nil {
 				elapsed := time.Since(start).Milliseconds()
 				time.Sleep(time.Second * 10)
 				atomic.AddInt64(&completeNumbers, 1)
@@ -42,8 +37,8 @@ func main() {
 
 	connectionPerSecond, timePerConnection, connectionStats := utils.GetResult(connectionTimes)
 
-	fmt.Printf("Running %0.2fs test @ %s\n", time.Since(timeStarted).Seconds(), *serverAddress)
-	fmt.Println(" ", *connectionNumber, " connections")
+	fmt.Printf("Running %0.2fs test @ %s\n", time.Since(timeStarted).Seconds(), serverAddress)
+	fmt.Println(" ", connectionNumber, " connections")
 	fmt.Printf("Complete connections: %d (%0.2f%%)\n", completeNumbers, 100*float64(completeNumbers)/float64(completeNumbers+failedNumbers))
 	fmt.Println("Failed connections:", failedNumbers)
 	fmt.Printf("Connections per second: %0.2f\n", connectionPerSecond)
