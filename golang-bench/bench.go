@@ -3,7 +3,7 @@ package main
 import (
 	"flag"
 
-	"./benchers"
+	"github.com/pythias/c10m/golang-bench/benchers"
 )
 
 const ServerTypeNormal = 0

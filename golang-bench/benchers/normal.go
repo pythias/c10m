@@ -1,4 +1,4 @@
-package benchers;
+package benchers
 
 import (
 	"fmt"
@@ -7,7 +7,7 @@ import (
 	"sync/atomic"
 	"time"
 
-	"../utils"
+	"github.com/pythias/c10m/golang-bench/utils"
 )
 
 func StartNormal(serverAddress string, connectionNumber int) {

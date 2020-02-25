@@ -3,7 +3,7 @@ package main
 import (
 	"testing"
 
-	"./benchers"
+	"github.com/pythias/c10m/golang-bench/benchers"
 )
 
 func TestNormalBencher(t *testing.T) {
