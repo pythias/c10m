@@ -30,3 +30,6 @@ target/
 .project
 .classpath
 .settings/
+
+# go
+go.mod
