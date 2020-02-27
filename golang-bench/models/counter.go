@@ -13,7 +13,7 @@ type Stats struct {
 type Counter struct {
 	Stats
 
-	Server    string
+	Id        int
 	Connected int64
 	Failed    int64
 	Closed    int64

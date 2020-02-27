@@ -9,7 +9,15 @@ import (
 	"sync"
 )
 
-func OutputResults(header string, results map[string]models.Counter) {
+func OutputResults(header string, results map[int]models.Counter) {
+	if len(results) == 0 {
+		tm.Clear()
+		tm.MoveCursor(1, 1)
+		_, _ = tm.Println(header)
+		tm.Flush()
+		return
+	}
+
 	stats0 := models.Stats{
 		ConnectionPerSecond: 0,
 		TimePerConnection:   0,
@@ -21,7 +29,7 @@ func OutputResults(header string, results map[string]models.Counter) {
 	}
 	counter0 := models.Counter{
 		Stats:     stats0,
-		Server:    "ALL",
+		Id:        0,
 		Connected: 0,
 		Failed:    0,
 		Closed:    0,
@@ -42,7 +50,7 @@ func OutputResults(header string, results map[string]models.Counter) {
 		means = append(means, counter.Mean)
 	}
 
-	meanStats, _ := calculateStats(means)
+	meanStats, _ := CalculateStats(means)
 	counter0.Mean = meanStats.Mean
 	counter0.Stdev = meanStats.Stdev
 	counter0.Median = meanStats.Median
@@ -63,10 +71,10 @@ func OutputResults(header string, results map[string]models.Counter) {
 
 func GetResult(m sync.Map) (models.Stats, error) {
 	milliseconds := syncToNormal(m)
-	return calculateStats(milliseconds)
+	return CalculateStats(milliseconds)
 }
 
-func calculateStats(milliseconds []float64) (models.Stats, error) {
+func CalculateStats(milliseconds []float64) (models.Stats, error) {
 	if len(milliseconds) < 2 {
 		return models.Stats{}, errors.New("Not enough values")
 	}
