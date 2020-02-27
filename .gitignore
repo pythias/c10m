@@ -33,6 +33,7 @@ target/
 
 # go
 go.mod
+dependency-reduced-pom.xml
 
 .pids
 nohup.out

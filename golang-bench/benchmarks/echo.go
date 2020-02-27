@@ -9,7 +9,7 @@ import (
 )
 
 func StartEcho(host string, begins int, ends int, numbers int, concurrency int, message string) {
-    header := fmt.Sprintf("Benchmark v1.0\n%d connections @%s:%d-%d \nConcurrency: %d\nEcho message: %s",
+    header := fmt.Sprintf("Benchmark v1.0.1\n%d connections @%s:%d-%d \nConcurrency: %d\nEcho message: %s",
         numbers, host, begins, ends, concurrency, message)
 
     counterChannel := make(chan models.Counter)
