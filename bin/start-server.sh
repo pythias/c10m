@@ -15,7 +15,7 @@ case $TYPE in
     ;;
 
   *)
-    echo -n "unknown"
+    echo -n "Unknown server type."
     ;;
 esac
 

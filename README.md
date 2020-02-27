@@ -18,3 +18,12 @@ sysctl -w fs.file-max=10485760
 ulimit -n 1048576
 echo 'ulimit -n 1048576' >> ~/.bash_profile
 ```
+
+## 脚本
+
+```bash
+
+bin/start-server.sh Netty 10.10.10.10 9000 9003 1G
+bin/benchmark.sh Netty -h 10.10.10.10 -b 9000 -e 9003 -n 10000 -c 10 -m "Echo Message"
+
+```

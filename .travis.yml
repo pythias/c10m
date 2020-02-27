@@ -2,14 +2,14 @@ matrix:
   include:
     - language: go
       go:
-        - "1.13"
+        - 1.13
       before_install:
         - cd golang-bench/
       script:
         - go test .
 
     - language: java
-        - oraclejdk8
+      jdk: openjdk8
       before_install:
         - cd java-netty/
       script: mvn test
