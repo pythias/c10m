@@ -31,9 +31,6 @@ target/
 .classpath
 .settings/
 
-# go
-go.mod
 dependency-reduced-pom.xml
-
 .pids
 nohup.out
